@@ -1,31 +1,25 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import logo from './logo.svg'
 import './App.css'
 import Box from './component/box';
 
-function App() {
+const App = () => {
   const [count, setCount] = useState(0);
-  const [color, setColor] = useState("green");
-  const [myStatus, setMyStatus] = useState(false);
-  const [products, setProducts] = useState([{ id: 1, name: "A" }, { id: 2, name: "B" }, { id: 3, name: "C" }]);
+  const [products, setProducts] = useState([]);
 
-  const removeItem = (id) => {
-    setProducts(products.filter(item => item.id !== id))
-  }
-  return <div>
+  useEffect(() => {
 
-    String: <Box color={color} /> <br />
-    Boolean: {myStatus ? "Da ket hon" : "Chua ket hon"} <br />
+    async function getProducts() {
+      const reponse = await fetch("http://localhost:3001/api/products");
+      const data = await reponse.json();
+      setProducts(data);
+    }
+    getProducts();
+  }, [])
 
-    Number: {count} <br /> <button onClick={() => setCount(count + 1)}>Change Count</button>
-
-    <button onClick={() => setMyStatus(!myStatus)}>Toggled Status</button>
-    {myStatus && <div>
-      Arr: {products.map(item => <div>  {item.name}
-        <button onClick={() => removeItem(item.id)}>Delete</button>
-      </div>)}
-    </div>}
+  return <div>{count}
+    <button onClick={() => setCount(count + 1)}>Click</button>
+    {products.map(item => item.name)}
   </div>
 }
-
 export default App
