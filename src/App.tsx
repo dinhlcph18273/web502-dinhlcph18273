@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import logo from './logo.svg'
 import './App.css'
-import { Product } from './types/product'
+import { ProductType } from './types/product'
 import ShowInfor from './component/ShowInfor'
-import { list } from './api/product'
+import { add, list } from './api/product'
 import { Navigate, NavLink, Routes, Route } from "react-router-dom"
 import WebsiteLayout from './page/layouts/WebsiteLayout'
 import HomePage from './page/homePage'
@@ -12,9 +12,10 @@ import AdminLayout from './page/layouts/AdminLayout'
 import Dashboard from './page/Dashboard'
 import ProductManager from './page/ProductManager'
 import ProductDetail from './page/ProductDetail'
+import ProductAdd from './page/ProductAdd'
 
 function App() {
-  const [products, setProducts] = useState<{ _id: number, name: String }[]>([]);
+  const [products, setProducts] = useState<ProductType[]>([]);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -23,6 +24,13 @@ function App() {
     }
     getProducts();
   }, [])
+
+  const onHandlerAdd = async (product: object) => {
+    console.log(product);
+
+    const { data } = await add(product);
+    setProducts([...products, data])
+  }
   return (
     <div className='App'>
       <header>
@@ -40,11 +48,16 @@ function App() {
               <Route index element={<ProductPage />} />
               <Route path=':id' element={<ProductDetail />} />
             </Route>
+
           </Route>
           <Route path='admin' element={<AdminLayout />}>
             <Route index element={<Navigate to="/admin/dashboard" />} />
             <Route path='dashboard' element={<Dashboard />} />
-            <Route path='product' element={<ProductManager />} />
+            <Route path='product'>
+              <Route index element={<ProductManager products={products} />} />
+              <Route path='add' element={<ProductAdd onAdd={onHandlerAdd} />} />
+              <Route />
+            </Route>
           </Route>
         </Routes>
       </main>
@@ -52,4 +65,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
