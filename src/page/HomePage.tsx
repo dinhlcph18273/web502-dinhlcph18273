@@ -1,10 +1,18 @@
 import React from 'react'
+import Banner from '../component/Banner'
+import ListProduct from '../component/ListProduct'
+import { ProductType } from '../types/product'
 
-type Props = {}
+type HomePageProps = {
+    products: ProductType[]
+}
 
-const HomePage = (props: Props) => {
+const HomePage = (props: HomePageProps) => {
     return (
-        <div>HomePage</div>
+        <div>
+            <Banner />
+            <ListProduct products={props.products} />
+        </div>
     )
 }
 

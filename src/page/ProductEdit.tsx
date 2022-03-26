@@ -1,22 +1,36 @@
-import React from 'react'
-import { useForm, SubmitHandler } from "react-hook-form"
-import { useNavigate } from "react-router-dom"
+import React, { useEffect } from 'react'
+import { useForm, SubmitHandler } from 'react-hook-form'
+import { useNavigate, useParams } from 'react-router-dom'
+import { read } from '../api/product'
+import { ProductType } from '../types/product'
 
-type Inputs = {
+
+type ProductEditProps = {
+    onUpdate: (product: ProductType) => void
+}
+type FormInputs = {
     name: string,
     price: number,
     img: string
 }
-type ProductAddProps = {
-    onAdd: (product: Inputs) => void
-}
 
-const ProductAdd = (props: ProductAddProps) => {
-    const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
-    const navigate = useNavigate();
-    const onSubmit: SubmitHandler<Inputs> = (dataInput) => {
-        props.onAdd(dataInput);
-        navigate("/admin/products");
+const ProductEdit = (props: ProductEditProps) => {
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<ProductType>()
+    const { id } = useParams();
+    console.log(id);
+
+    const navigate = useNavigate()
+    useEffect(() => {
+        const getProducts = async () => {
+            const { data } = await read(id)
+            reset(data)
+        }
+        getProducts()
+    }, [])
+
+    const onSubmit: SubmitHandler<ProductType> = data => {
+        props.onUpdate(data)
+        navigate("/admin/products")
     }
     return (
         <div>
@@ -43,11 +57,11 @@ const ProductAdd = (props: ProductAddProps) => {
                         {errors.name && <span>Bat buoc nhap truong nay</span>}
 
                     </div>
-                    <button type="submit" className="btn btn-primary">Add</button>
+                    <button type="submit" className="btn btn-primary">Update</button>
                 </div>
             </form>
         </div>
     )
 }
 
-export default ProductAdd
+export default ProductEdit

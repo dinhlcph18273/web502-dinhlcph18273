@@ -1,10 +1,16 @@
 import React from 'react'
+import ListProduct from '../component/ListProduct'
+import { ProductType } from '../types/product'
 
-type Props = {}
+type ProductPageProps = {
+  products: ProductType[]
+}
 
-const ProductPage = (props: Props) => {
+const ProductPage = (props: ProductPageProps) => {
   return (
-    <div>ProductPage</div>
+    <div>
+      <ListProduct products={props.products} />
+    </div>
   )
 }
 

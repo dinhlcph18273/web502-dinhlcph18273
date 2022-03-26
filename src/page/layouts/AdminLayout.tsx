@@ -1,5 +1,7 @@
 import React from 'react'
-import { Outlet } from "react-router-dom"
+import { Link, Outlet } from "react-router-dom"
+import Header from '../../component/Header'
+import NavAdmin from '../../component/NavAdmin'
 type Props = {}
 
 const AdminLayout = (props: Props) => {
@@ -9,10 +11,10 @@ const AdminLayout = (props: Props) => {
                 Admin
             </header>
             <div className="row">
-                <div className="col-2">
-                    <aside>Sidebar</aside>
+                <div className="col-3">
+                    <NavAdmin />
                 </div>
-                <div className="col-10">
+                <div className="col-9">
                     <main>
                         <Outlet />
                     </main>
