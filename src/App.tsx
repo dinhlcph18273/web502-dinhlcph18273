@@ -15,9 +15,16 @@ import ProductEdit from './page/ProductEdit'
 import PrivateRouter from './component/PrivateRouter'
 import Signup from './page/Signup'
 import Signin from './page/Signin'
+import CategoryManager from './page/CategoryManager'
+import { CategoryType } from './types/category'
+import { createCate, listCate, removeCate, updateCate } from './api/category'
+import CategoryAdd from './page/CategoryAdd'
+import CategoryEdit from './page/CategoryEdit'
+import CategoryPage from './page/CategoryPage'
 
 function App() {
   const [products, setProducts] = useState<ProductType[]>([]);
+  const [categories, setCategory] = useState<CategoryType[]>([])
 
   useEffect(() => {
     const getProducts = async () => {
@@ -25,6 +32,11 @@ function App() {
       setProducts(data);
     }
     getProducts();
+    const getCategory = async () => {
+      const { data } = await listCate();
+      setCategory(data)
+    }
+    getCategory();
   }, [])
 
   const onHandlerAdd = async (product: any) => {
@@ -33,12 +45,32 @@ function App() {
     setProducts([...products, data])
   }
   const onHandlerRemove = (id: number) => {
-    remove(id);
-    setProducts(products.filter(item => item._id !== id))
+    const confirm = window.confirm("Bạn có chắc muốn xóa?")
+    if (confirm) {
+      remove(id);
+      setProducts(products.filter(item => item._id !== id))
+    }
   }
   const onHandlerUpdate = async (product: ProductType) => {
     const { data } = await update(product)
     setProducts(products.map(item => item._id === data._id ? product : item))
+  }
+
+  const onHandlerRemoveCate = (id: number) => {
+    const confirm = window.confirm("Bạn có chắc muốn xóa?")
+    if (confirm) {
+      removeCate(id)
+      setCategory(categories.filter(item => item._id !== id))
+    }
+  }
+  const onHandlerAddCate = async (category: any) => {
+    const { data } = await createCate(category)
+    setCategory([...categories, data])
+
+  }
+  const onHandlerUpdateCate = async (category: CategoryType) => {
+    const { data } = await updateCate(category)
+    setCategory(categories.map(item => item._id === data._id ? category : item))
   }
   return (
     <div className='App'>
@@ -47,8 +79,9 @@ function App() {
           <Route path="/" element={<WebsiteLayout />} >
             <Route index element={<HomePage products={products} />} />
             <Route path='products'>
-              <Route index element={<ProductPage products={products} />} />
+              <Route index element={<ProductPage category={categories} products={products} />} />
               <Route path=':id' element={<ProductDetail products={products} />} />
+              <Route path='category/:id' element={<CategoryPage category={categories} />} />
             </Route>
           </Route>
 
@@ -59,6 +92,12 @@ function App() {
               <Route index element={<ProductManager products={products} onRemove={onHandlerRemove} />} />
               <Route path='add' element={<ProductAdd onAdd={onHandlerAdd} />} />
               <Route path=':id/edit' element={<ProductEdit onUpdate={onHandlerUpdate} />} />
+              <Route />
+            </Route>
+            <Route path='category'>
+              <Route index element={<CategoryManager category={categories} onRemoveCate={onHandlerRemoveCate} />} />
+              <Route path='add' element={<CategoryAdd onAddCate={onHandlerAddCate} />} />
+              <Route path=':id/edit' element={<CategoryEdit onEditCate={onHandlerUpdateCate} />} />
               <Route />
             </Route>
           </Route>

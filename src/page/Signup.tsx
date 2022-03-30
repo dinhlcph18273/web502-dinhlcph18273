@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { SubmitHandler, useForm } from "react-hook-form"
+import { useNavigate } from 'react-router-dom'
 import { signup } from '../api/user'
 import { UserType } from '../types/user'
+import { isAuthenticate } from '../utils/localStorage'
 type FormInputs = {
     name: string,
     email: string,
     password: string,
-    role: number
 }
 type Props = {
 
@@ -14,9 +15,10 @@ type Props = {
 
 const Signup = (props: Props) => {
     const { register, handleSubmit, formState: { errors } } = useForm<FormInputs>()
-    const onSubmit: SubmitHandler<FormInputs> = async (dataInput) => {
-        const { data } = await signup(dataInput)
-        alert("thêm ok")
+    const navigate = useNavigate();
+    const onSubmit: SubmitHandler<FormInputs> = dataInput => {
+        signup(dataInput)
+        navigate('/signin')
     }
     return (
         <div className='container'>

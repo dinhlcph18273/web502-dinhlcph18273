@@ -68,7 +68,7 @@ const NavAdmin = (props: Props) => {
                                         <Link to="/admin/products" className="block py-2 px-5 rounded bg-cyan-500 bg-opacity-10 hover:bg-opacity-20 text-cyan-500">Products</Link>
                                     </li>
                                     <li>
-                                        <a className="block py-2 px-5 hover:text-gray-800 transition" href="">Avatars</a>
+                                        <Link className="block py-2 px-5 hover:text-gray-800 transition" to="/admin/category">Category</Link>
                                     </li>
                                     <li>
                                         <a className="block py-2 px-5 hover:text-gray-800 transition" href="">Badges</a>
