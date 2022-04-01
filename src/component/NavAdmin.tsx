@@ -34,7 +34,7 @@ const NavAdmin = (props: Props) => {
                         <span className="uppercase px-4 text-gray-500">Docs</span>
                         <ul className="space-y-4 mb-12 px-4 mt-8">
                             <li>
-                                <a href="" className="flex gap-4 text-gray-600 hover:text-gray-800 transition">
+                                <a href="/" className="flex gap-4 text-gray-600 hover:text-gray-800 transition">
                                     <img src="https://raw.githubusercontent.com/Meschacirung/Tailus-website/f59a4b3ecc1ad9f6a2b0ad9e3fca6f957140cc4d/public/images/icons/favorites.svg" className="w-6" alt="" />
                                     Documentation
                                 </a>

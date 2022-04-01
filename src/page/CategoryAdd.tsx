@@ -32,7 +32,7 @@ const CategoryAdd = (props: CategoryAddProps) => {
                     {errors.name && <span>Bat buoc nhap truong nay</span>}
 
                 </div>
-                <button type="submit" className="btn btn-primary">Add</button>
+                <button type="submit" className="bg-sky-500 hover:bg-sky-700 px-5 py-2.5 text-sm leading-5 rounded-md font-semibold text-white">Add</button>
             </form>
         </div>
     )

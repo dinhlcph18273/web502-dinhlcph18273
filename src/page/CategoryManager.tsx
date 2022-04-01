@@ -12,13 +12,13 @@ const CategoryManager = ({ category, onRemoveCate }: CategoryManagerProps) => {
         <div>
             <h2>List danh mục</h2>
             <Link to="/admin/category/add">Thêm</Link>
-            <table className='table'>
-                <thead>
+            <table className='w-full text-sm text-left text-gray-500 dark:text-gray-400'>
+                <thead className='text-xs text-gray-700 uppercase  '>
                     <tr>
-                        <th scope='col'>#</th>
-                        <th scope='col'>Tên danh mục</th>
-                        <th scope='col'>Ảnh</th>
-                        <th scope='col'></th>
+                        <th scope='col' className='px-6 py-3'>#</th>
+                        <th scope='col' className='px-6 py-3'>Tên danh mục</th>
+                        <th scope='col' className='px-6 py-3'>Ảnh</th>
+                        <th scope='col' className='px-6 py-3'></th>
                     </tr>
                 </thead>
 

@@ -18,7 +18,14 @@ const Signin = (props: Props) => {
     const onSubmit: SubmitHandler<FormInput> = async dataInput => {
         const { data: user } = await signin(dataInput);
         authenticated(user, () => {
-            navigate('/')
+            const { user } = JSON.parse(localStorage.getItem("user") as string)
+
+            if (user?.role === 1) {
+                navigate('/admin')
+            }
+            else {
+                navigate("/")
+            }
         })
     }
     return (

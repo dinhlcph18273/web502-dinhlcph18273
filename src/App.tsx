@@ -21,10 +21,13 @@ import { createCate, listCate, removeCate, updateCate } from './api/category'
 import CategoryAdd from './page/CategoryAdd'
 import CategoryEdit from './page/CategoryEdit'
 import CategoryPage from './page/CategoryPage'
+import { listPost } from './api/post'
+
 
 function App() {
   const [products, setProducts] = useState<ProductType[]>([]);
   const [categories, setCategory] = useState<CategoryType[]>([])
+  const [post, setPost] = useState<any[]>([])
 
   useEffect(() => {
     const getProducts = async () => {
@@ -37,6 +40,11 @@ function App() {
       setCategory(data)
     }
     getCategory();
+    const getPost = async () => {
+      const { data } = await listPost();
+      setPost(data)
+    }
+    getPost()
   }, [])
 
   const onHandlerAdd = async (product: any) => {
@@ -77,12 +85,12 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<WebsiteLayout />} >
-            <Route index element={<HomePage products={products} />} />
+            <Route index element={<HomePage products={products} post={post} />} />
             <Route path='products'>
               <Route index element={<ProductPage category={categories} products={products} />} />
               <Route path=':id' element={<ProductDetail products={products} />} />
-              <Route path='category/:id' element={<CategoryPage category={categories} />} />
             </Route>
+            <Route path='category/:id' element={<CategoryPage category={categories} />} />
           </Route>
 
           <Route path='admin' element={<PrivateRouter><AdminLayout /></PrivateRouter>}>

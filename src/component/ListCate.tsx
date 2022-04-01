@@ -16,14 +16,14 @@ const ListCate = ({ category }: ListCateProps) => {
                         {category?.map((item, index) => {
                             return (
                                 <li id="menu-item-705" className="py-3 pl-2 hover:bg-lime-500 hover:text-white " key={index} >
-                                    <button className="btn-category"><Link to={`category/${item._id}`}>{item.name}</Link></button>
+                                    <button className="btn-category"><a href={`/category/${item._id}`}>{item.name}</a></button>
                                 </li>
                             )
                         })}
                     </ul>
                 </div>
-            </aside>
-        </div>
+            </aside >
+        </div >
     )
 }
 

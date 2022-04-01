@@ -10,11 +10,11 @@ const AdminLayout = (props: Props) => {
             <header>
                 Admin
             </header>
-            <div className="row">
-                <div className="col-3">
+            <div className="admin">
+                <div className="">
                     <NavAdmin />
                 </div>
-                <div className="col-9">
+                <div className="">
                     <main>
                         <Outlet />
                     </main>

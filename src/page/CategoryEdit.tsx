@@ -41,7 +41,7 @@ const CategoryEdit = (props: CategoryEditProps) => {
                     {errors.name && <span>Bat buoc nhap truong nay</span>}
 
                 </div>
-                <button type="submit" className="btn btn-primary">Edit</button>
+                <button type="submit" className="bg-sky-500 hover:bg-sky-700 px-5 py-2.5 text-sm leading-5 rounded-md font-semibold text-white">Edit</button>
             </form>
         </div>
     )

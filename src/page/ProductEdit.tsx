@@ -46,10 +46,18 @@ const ProductEdit = (props: ProductEditProps) => {
                     <div className="flex justify-center">
                         <div className="mb-3 xl:w-96">
                             <select {...register('category')} className="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
-                                <option value={`6242e1e4163be05a4ba3ab90`}>Danh mục 1</option>
-                                <option value={`6242e1e7163be05a4ba3ab92`}>Danh mục 2</option>
-                                <option value={`6242e577e5d985aa3392365f`}>Danh mục 3</option>
-                                <option value={`6242f007e5d985aa33923696`}>Danh mục 4</option>
+                                <option value={`6242e1e4163be05a4ba3ab90`}>Rau củ</option>
+                                <option value={`6242e1e7163be05a4ba3ab92`}>Hải sản</option>
+                                <option value={`6242e577e5d985aa3392365f`}>Trái cây</option>
+                                <option value={`6242f007e5d985aa33923696`}>Thịt trứng</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className="flex justify-center">
+                        <div className="mb-3 xl:w-96">
+                            <select {...register('status')} className="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
+                                <option value="Còn hàng">Còn hàng</option>
+                                <option value="Hết hàng">Hết hàng</option>
                             </select>
                         </div>
                     </div>
@@ -59,7 +67,12 @@ const ProductEdit = (props: ProductEditProps) => {
                         {errors.name && <span>Bat buoc nhap truong nay</span>}
 
                     </div>
-                    <button type="submit" className="btn btn-primary">Update</button>
+                    <div className="mb-3">
+                        <label htmlFor="img" className="form-label">Mô tả Sản phẩm</label>
+                        <input type="text" className="form-control" id="desc" {...register('desc', { required: true })} />
+                        {errors.img && <span>Bat buoc nhap truong nay</span>}
+                    </div>
+                    <button type="submit" className="bg-sky-500 hover:bg-sky-700 px-5 py-2.5 text-sm leading-5 rounded-md font-semibold text-white">Update</button>
                 </div>
             </form>
         </div>
